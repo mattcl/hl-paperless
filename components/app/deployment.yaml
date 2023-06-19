@@ -27,6 +27,10 @@ spec:
                 name: "db-sentinel"
             - configMapRef:
                 name: "db-connect"
+            - configMapRef:
+                name: "app-sentinel"
+            - secretRef:
+                name: "paperless-app-secret"
           ports:
             - name: http
               containerPort: 8000

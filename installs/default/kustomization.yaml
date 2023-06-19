@@ -8,6 +8,7 @@ resources:
   - ../../components/redis
   - ../../components/tika
   - db-secret.yaml
+  - app-secret.yaml
 namespace: "paperless"
 namePrefix: "paperless-"
 images:
@@ -32,6 +33,7 @@ configMapGenerator:
     files:
       - db-secret.yaml
   # for configuring the db statefulset
+  # for configuring the db statefulset
   - name: db-config
     envs:
       - db-config.env
@@ -39,3 +41,6 @@ configMapGenerator:
   - name: db-connect
     envs:
       - db-connect.env
+  - name: app-sentinel
+    files:
+      - app-secret.yaml
