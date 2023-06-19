@@ -1,0 +1,24 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gotenberg
+spec:
+  revisionHistoryLimit: 3
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  template:
+    spec:
+      containers:
+        - name: gotenberg
+          image: "gotenberg/gotenberg:7.8.3"
+          imagePullPolicy: "IfNotPresent"
+          command:
+            - "gotenberg"
+            - "--chromium-disable-javascript=true"
+            - "--chromium-allow-list=file:///tmp/.*"
+          ports:
+            - name: gotenberg
+              containerPort: 3000
+              protocol: TCP

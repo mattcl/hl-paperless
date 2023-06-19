@@ -14,6 +14,12 @@ spec:
         - name: app
           image: "ghcr.io/paperless-ngx/paperless-ngx:1.16"
           imagePullPolicy: Always
+          env:
+            - name: PAPERLESS_DBPASS
+              valueFrom:
+                secretRef:
+                  name: paperless-db-secret
+                  key: POSTGRES_PASSWORD
           envFrom:
             - configMapRef:
                 name: "app-config"
@@ -21,18 +27,30 @@ spec:
                 name: "db-sentinel"
             - configMapRef:
                 name: "db-connect"
-            - secretRef:
-                # we can't let kustomize handle this because this secret is
-                # unknown to it because it's the result of unsealing the secret
-                name: "paperless-db-secret"
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 8000
               protocol: TCP
           volumeMounts:
             - name: data
-              mountPath: /data
+              mountPath: /usr/src/paperless/data
+            - name: media
+              mountPath: /usr/src/paperless/media
+            - name: export
+              mountPath: /usr/src/paperless/export
+            - name: consume
+              mountPath: /usr/src/paperless/consume
       volumes:
         - name: data
           persistentVolumeClaim:
             claimName: data-pvc
+        - name: export
+          persistentVolumeClaim:
+            claimName: export-pvc
+        - name: consume
+          persistentVolumeClaim:
+            claimName: consume-pvc
+        - name: media
+          hostPath:
+            path: /media/docs/paperless
+            type: Directory

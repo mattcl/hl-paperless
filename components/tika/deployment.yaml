@@ -1,0 +1,20 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tika
+spec:
+  revisionHistoryLimit: 3
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  template:
+    spec:
+      containers:
+        - name: tika
+          image: "apache/tika:2.8.0.0"
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - name: tika
+              containerPort: 9998
+              protocol: TCP

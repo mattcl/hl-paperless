@@ -4,13 +4,19 @@ kind: Kustomization
 resources:
   - ../../components/app
   - ../../components/db
+  - ../../components/gotenberg
   - ../../components/redis
+  - ../../components/tika
   - db-secret.yaml
 namespace: "paperless"
 namePrefix: "paperless-"
 images:
   - name: "ghcr.io/paperless-ngx/paperless-ngx"
     newTag: "1.16"
+  - name: "apache/tika"
+    newTag: "2.8.0.0"
+  - name: "gotenberg/gotenberg"
+    newTag: "7.8.3"
   - name: "docker.io/bitnami/postgresql"
     newTag: "15.3.0-debian-11-r9"
   - name: "docker.io/bitnami/redis"
