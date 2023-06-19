@@ -17,7 +17,7 @@ spec:
           env:
             - name: PAPERLESS_DBPASS
               valueFrom:
-                secretRef:
+                secretKeyRef:
                   name: paperless-db-secret
                   key: POSTGRES_PASSWORD
           envFrom:
