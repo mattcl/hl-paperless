@@ -52,8 +52,9 @@ spec:
           persistentVolumeClaim:
             claimName: export-pvc
         - name: consume
-          persistentVolumeClaim:
-            claimName: consume-pvc
+          hostPath:
+            path: /media/docs/paperless-consume
+            type: Directory
         - name: media
           hostPath:
             path: /media/docs/paperless
