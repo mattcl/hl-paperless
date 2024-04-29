@@ -53,9 +53,9 @@ spec:
             claimName: export-pvc
         - name: consume
           hostPath:
-            path: /media/docs/paperless-consume
+            path: /mnt/docs/paperless-consume
             type: Directory
         - name: media
           hostPath:
-            path: /media/docs/paperless
+            path: /mnt/docs/paperless
             type: Directory
